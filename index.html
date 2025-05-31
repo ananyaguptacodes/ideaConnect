@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdeaConnect - Connect Ideas with Investors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 IdeaConnect</h1>
+            <p>Where Great Ideas Meet Smart Investors</p>
+        </div>
+
+        <!-- Authentication Section -->
+        <div id="auth-section" class="auth-section">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Choose Your Role</h2>
+            <div class="auth-buttons">
+                <button class="btn btn-primary" onclick="login('user')">Login as User (Idea Creator)</button>
+                <button class="btn btn-secondary" onclick="login('investor')">Login as Investor</button>
+            </div>
+        </div>
+
+        <!-- User Dashboard -->
+        <div id="user-dashboard" class="dashboard">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <div class="avatar">U</div>
+                    <div>
+                        <h3>Welcome, John Doe</h3>
+                        <p>Idea Creator</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('analyze-idea')">Analyze Idea</button>
+                <button class="tab" onclick="showTab('publish-idea')">Publish Idea</button>
+                <button class="tab" onclick="showTab('my-ideas')">My Ideas</button>
+                <button class="tab" onclick="showTab('investors')">Find Investors</button>
+            </div>
+
+            <!-- Analyze Idea Tab -->
+            <div id="analyze-idea" class="tab-content active">
+                <h3>💡 Analyze Your Idea with AI</h3>
+                <div class="chatbot-section">
+                    <h4>🤖 InvestiSight AI Analyzer</h4>
+                    <p style="margin-bottom: 15px; opacity: 0.9;">Get comprehensive market analysis, investment insights, and strategic recommendations for your business ideas.</p>
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="message bot">
+                            <strong>🤖 InvestiSight AI:</strong> Welcome! I'm your AI-powered business analyst. I can provide detailed market analysis, investment insights, risk assessments, and strategic recommendations for your business ideas. Please describe your business idea or market you'd like to analyze, and I'll provide comprehensive insights with real-time data and professional analysis.
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chat-input" placeholder="Describe your business idea (e.g., 'AI-powered healthcare platform', 'Renewable energy in India')..." maxlength="500" onkeypress="handleChatEnter(event)">
+                        <button id="send-btn" onclick="sendMessage()">🔍 Analyze</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publish Idea Tab -->
+            <div id="publish-idea" class="tab-content">
+                <h3>📝 Publish Your Idea</h3>
+                <form onsubmit="publishIdea(event)">
+                    <div class="form-group">
+                        <label>Idea Title</label>
+                        <input type="text" id="idea-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="idea-category" required>
+                            <option value="">Select Category</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Education">Education</option>
+                            <option value="E-commerce">E-commerce</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="idea-description" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Project Value ($)</label>
+                        <input type="number" id="idea-value" min="1000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Target Market</label>
+                        <textarea id="target-market" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Publish Idea</button>
+                </form>
+            </div>
+
+            <!-- My Ideas Tab -->
+            <div id="my-ideas" class="tab-content">
+                <h3>📋 My Published Ideas</h3>
+                <div id="user-ideas-list" class="ideas-grid">
+                    <!-- User's ideas will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Investors Tab -->
+            <div id="investors" class="tab-content">
+                <h3>💼 Available Investors</h3>
+                <div class="investors-list" id="investors-list">
+                    <!-- Investors will be displayed here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Investor Dashboard -->
+        <div id="investor-dashboard" class="dashboard">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <div class="avatar">I</div>
+                    <div>
+                        <h3>Welcome, Sarah Wilson</h3>
+                        <p>Investor</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('browse-ideas')">Browse Ideas</button>
+                <button class="tab" onclick="showTab('my-investments')">My Investments</button>
+            </div>
+
+            <!-- Browse Ideas Tab -->
+            <div id="browse-ideas" class="tab-content active">
+                <h3>🔍 Discover Investment Opportunities</h3>
+                <div class="search-section">
+                    <input type="text" class="search-input" id="search-ideas" placeholder="Search ideas by title, category, or keywords..." oninput="searchIdeas()">
+                </div>
+                <div id="ideas-list" class="ideas-grid">
+                    <!-- Ideas will be displayed here -->
+                </div>
+            </div>
+
+            <!-- My Investments Tab -->
+            <div id="my-investments" class="tab-content">
+                <h3>💰 My Investment Portfolio</h3>
+                <div id="investments-list" class="ideas-grid">
+                    <!-- Investments will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h3>Contact Idea Creator</h3>
+            <div id="contact-info">
+                <!-- Contact information will be displayed here -->
+            </div>
+            <form onsubmit="sendContactMessage(event)">
+                <div class="form-group">
+                    <label>Your Message</label>
+                    <textarea id="contact-message" rows="4" placeholder="Introduce yourself and express your interest in this idea..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
