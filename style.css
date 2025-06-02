@@ -5,9 +5,18 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  scroll-behavior: smooth;
+  justify-content: center; /* center horizontally */
+  padding: 40px 20px 20px 20px;
   min-height: 100vh;
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* these 4 are some other options */
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  /* background-image: linear-gradient(to top, #a7a6cb 0%, #8989ba 52%, #8989ba 100%); */
+  /* background-image: linear-gradient(45deg, #8baaaa 0%, #ae8b9c 100%); */
+  /* background: linear-gradient(to bottom, #2c3e50, #4ca1af); */
 }
 
 .container {
@@ -19,7 +28,8 @@ body {
 .header {
   text-align: center;
   color: white;
-  margin-bottom: 30px;
+  margin-bottom: 70px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .header h1 {
@@ -31,9 +41,10 @@ body {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  padding: 30px;
+  padding: 40px;
   margin-bottom: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
 .auth-buttons {
@@ -56,18 +67,46 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  background: linear-gradient(45deg, #566d7e, #2f4353);
   color: white;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 8px rgba(86, 109, 126, 0.4);
+}
+.btn-primary:hover {
+  background: linear-gradient(45deg, #435665, #1d2a3b);
+   box-shadow: 0 6px 14px rgba(67, 86, 101, 0.6);
 }
 
 .btn-secondary {
-  background: linear-gradient(45deg, #f093fb, #f5576c);
+  background: linear-gradient(45deg, #3a3a3a, #1c1c1c);
   color: white;
+  transition: background 0.3s ease;
+}
+.btn-secondary:hover {
+  background: linear-gradient(45deg, #2d2d2d, #121212);
 }
 
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:focus-visible {
+  outline: 3px solid #8ca0b3;
+  outline-offset: 3px;
+  box-shadow: none;
+}
+@media (max-width: 600px) {
+  .auth-section {
+    padding: 20px;
+  }
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .header h1 {
+    font-size: 1.8rem;
+  }
 }
 
 .dashboard {
@@ -102,7 +141,9 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  /* background: linear-gradient(45deg, #667eea, #764ba2); */
+  /* background: linear-gradient(135deg, #4b6cb7, #182848); */
+ background: linear-gradient(135deg, #4f5b66, #7d8a99);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,7 +168,8 @@ body {
 }
 
 .tab.active {
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  /* background: linear-gradient(135deg, #4b6cb7, #182848); */
+  background: linear-gradient(135deg, #4f5b66, #7d8a99);
   color: white;
 }
 
@@ -169,7 +211,8 @@ body {
 }
 
 .chatbot-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  background: linear-gradient(135deg, #4f5b66, #7d8a99);
   color: white;
   padding: 20px;
   border-radius: 15px;
@@ -296,7 +339,7 @@ body {
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
 }
 
 .idea-card:hover {
@@ -312,7 +355,9 @@ body {
 
 .idea-category {
   display: inline-block;
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  /* background: linear-gradient(135deg, #217a7a, #3db4b4); */
+  background: linear-gradient(135deg, #d94f4f, #f28c8c);
+
   color: white;
   padding: 4px 12px;
   border-radius: 15px;
@@ -413,4 +458,68 @@ body {
   padding: 10px;
   border-radius: 8px;
   margin: 10px 0;
+}
+/* Animations */
+
+/* 1. Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-section,
+.dashboard {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* 2. Zoom In for Active Tab Content */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.tab-content.active {
+  animation: zoomIn 0.3s ease-in-out;
+}
+
+/* 3. Slide In Modal Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-content {
+  animation: slideIn 0.4s ease-out;
+}
+
+/* 4. Float Up Animation on Hover */
+@keyframes floatUp {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.idea-card:hover {
+  animation: floatUp 1s ease-in-out infinite;
 }
